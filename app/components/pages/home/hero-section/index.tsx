@@ -29,7 +29,7 @@ export const HeroSection = () => (
             <div className='w-full lg:max-w-[530px]'>
                 <p className='font-mono text-emerald-400'>Olá, meu nome é</p>
                 <h2 className='text-4xl font-medium mt-2'>Ítalo Varzone</h2>
-                <p className='text-gray-400 my-6 text-sm sm:text-base'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non quas earum quod, laborum natus delectus obcaecati doloribus repellat sit voluptatibus iure vel recusandae tenetur pariatur. Itaque odit rerum fugit mollitia.</p>
+                <p className='text-gray-400 my-6 text-sm sm:text-base'>Olá, meu nome é <strong className='text-gray-300'>Ítalo Varzone</strong>, sou um desenvolvedor web apaixonado por tecnologia... Trabalho atualmente a <strong className='text-gray-300'>6 meses na área</strong>, e minha paixão pela criação de interfaces interativas e agradáveis é impulsionada pela vontade constante de aprender e aprimorar minhas habilidades 🔍🚀</p>
                 <div className='flex flex-wrap gap-x-2 gap-y-3 lg:max-w-[340px]'>
                     {Array.from({ length: 5 }).map((_, index) => (
                         <TechBadge name="Next.js" />
