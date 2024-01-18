@@ -40,7 +40,7 @@ export const ProjectCard = () => {
                     <TechBadge name="Next.js"/>
                 </div>
 
-                <Link href="/projects/book-wise">
+                <Link href="/projects/pokedex-api">
                     Ver Projeto
                     <HiArrowNarrowRight/>
                 </Link>
