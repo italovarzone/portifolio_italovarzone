@@ -1,4 +1,4 @@
-import { configFile } from './../.config/config';
+import { configFile } from './../.config/config'
 
 export const fetchHygraphQuery = async <T>(
   query: any,
@@ -15,9 +15,9 @@ export const fetchHygraphQuery = async <T>(
     body: JSON.stringify({
       query,
     }),
-  });
+  })
 
-  const { data } = await response.json();
+  const { data } = await response.json()
 
-  return data;
-};
+  return data
+}

@@ -1,11 +1,11 @@
 'use client'
 
-import { HeroSection } from "./components/pages/home/hero-section";
-import { HighLightedProjects } from "./components/pages/home/highlighted-projects";
-import { KnownTechs } from "./components/pages/home/known-techs";
-import { WorkExperience } from "./components/pages/home/work-experience";
-import { HomePageData } from "./types/page-info";
-import { fetchHygraphQuery } from "./utils/fetch-hygraph-query";
+import { HeroSection } from './components/pages/home/hero-section'
+import { HighLightedProjects } from './components/pages/home/highlighted-projects'
+import { KnownTechs } from './components/pages/home/known-techs'
+import { WorkExperience } from './components/pages/home/work-experience'
+import { HomePageData } from './types/page-info'
+import { fetchHygraphQuery } from './utils/fetch-hygraph-query'
 
 const getPageData = async (): Promise<HomePageData> => {
   const query = `
@@ -29,22 +29,33 @@ const getPageData = async (): Promise<HomePageData> => {
         name
         startDate
       }
+      highlightProjects {
+        slug
+        thumbnail {
+          url
+        }
+        title
+        shortDescription
+        technologies {
+          name
+        }
+      }
     }
   }
 `
 
-return fetchHygraphQuery(query)
+  return fetchHygraphQuery(query)
 }
 
 export default async function Home() {
-  const { page: pageData } = await getPageData();
+  const { page: pageData } = await getPageData()
 
   return (
     <>
-      <HeroSection homeInfo={pageData}/>
-      <KnownTechs/>
-      <HighLightedProjects/>
-      <WorkExperience/>
+      <HeroSection homeInfo={pageData} />
+      <KnownTechs techs={pageData.knownTechs} />
+      <HighLightedProjects projects={pageData.highlightProjects} />
+      <WorkExperience />
     </>
   )
 }
