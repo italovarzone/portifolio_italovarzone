@@ -1,5 +1,3 @@
-import { configFile } from './../.config/config'
-
 export const fetchHygraphQuery = async <T>(
   query: any,
   revalidate?: number,
