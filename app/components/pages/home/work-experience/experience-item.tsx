@@ -1,47 +1,83 @@
+'use client'
+
+import { RichText } from '@/app/components/rich-text'
 import { TechBadge } from '@/app/components/tech-badge'
+import { WorkExperience } from '@/app/types/work-experience'
 import Image from 'next/image'
+import { differenceInMonths, differenceInYears, format } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
 
-export const ExperienceItem = () => {
-    return (
-        <div className="grid grid-cols-[40px,1fr] gap-4 md:gap-10">
-            <div className="flex flex-col items-center gap-4">
-                <div className='rounded-full border border-gray-500 p-0.5'>
-                    <Image
-                        width={40}
-                        height={40}
-                        src="/images/vimansistemas_logo.jpg"
-                        className="rounded-full"
-                        alt="Logo da Empresa VIMAN Sistemas"
-                    />
-                </div>
+type ExperienceItemProps = {
+  experience: WorkExperience
+}
 
-                <div className='h-full w-[1px] bg-gray-800'/>
-            </div>
+export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
+  const startDate = new Date(experience.startDate)
+  const formattedStartDate = format(startDate, 'MMM yyyy', { locale: ptBR })
+  const formattedEndDate = experience.endDate
+    ? format(new Date(experience.endDate), 'MMM yyyy', { locale: ptBR })
+    : 'o momento'
 
-            <div>
-                <div className='flex flex-col gap-2 text-sm sm:text-base'>
-                    <a href="https://www.linkedin.com/company/vimansistemas/mycompany/" target="_blank" className='text-gray-500 hover:text-emerald-500 transition-colors'>
-                        @ VIMAN Sistemas
-                    </a>
-                    <h4 className='text-gray-300'>
-                        Desenvolvedor Full Stack
-                    </h4>
-                    <span className='text-gray-500'>
-                        nov 2023 • O momento • (4 meses)
-                    </span>
-                    <p className='text-gray-400'>
-                        Desenvolvimento de projetos web, gerenciamento e manutenção de componentes, correções de bugs e criação/inovação de novos projetos.
-                    </p>
-                </div>
+  const end = experience.endDate ? new Date(experience.endDate) : new Date()
+  const months = differenceInMonths(end, startDate)
+  const years = differenceInYears(end, startDate)
+  const monthsRemaining = months % 12
+  const formattedDuration =
+    years > 0
+      ? `${years} ano${years > 1 ? 's' : ''}${
+          monthsRemaining > 0
+            ? ` e ${monthsRemaining} mes${monthsRemaining > 1 ? 'es' : ''}`
+            : ''
+        }`
+      : `${months} mes${months > 1 ? 'es' : ''}`
 
-                <p className='text-gray-400 text-sm mb-3 mt-6 font-semibold'>Competências</p>
-                <div className='flex gap-x-2 gap-y-3 flex-wrap lg:max-w-[350px] mb-8'>
-                    <TechBadge name="AngularJS"/>
-                    <TechBadge name="AngularJS"/>
-                    <TechBadge name="AngularJS"/>
-                    <TechBadge name="AngularJS"/>
-                </div>
-            </div>
+  return (
+    <div className="grid grid-cols-[40px,1fr] gap-4 md:gap-10">
+      <div className="flex flex-col items-center gap-4">
+        <div className="rounded-full border border-gray-500 p-0.5">
+          <Image
+            width={40}
+            height={40}
+            src={experience.companyLogo.url}
+            className="rounded-full"
+            alt={`Logo da Empresa ${experience.companyName}`}
+          />
         </div>
-    )    
+
+        <div className="h-full w-[1px] bg-gray-800" />
+      </div>
+
+      <div>
+        <div className="flex flex-col gap-2 text-sm sm:text-base">
+          <a
+            href={experience.companyUrl}
+            target="_blank"
+            className="text-gray-500 hover:text-emerald-500 transition-colors"
+            rel="noreferrer"
+          >
+            @ {experience.companyName}
+          </a>
+          <h4 className="text-gray-300">{experience.role}</h4>
+          <span className="text-gray-500">
+            {formattedStartDate} • {formattedEndDate} • ({formattedDuration})
+          </span>
+          <div className="text-gray-400">
+            <RichText content={experience.description.raw} />
+          </div>
+        </div>
+
+        <p className="text-gray-400 text-sm mb-3 mt-6 font-semibold">
+          Competências
+        </p>
+        <div className="flex gap-x-2 gap-y-3 flex-wrap lg:max-w-[350px] mb-8">
+          {experience.technologies.map((tech) => (
+            <TechBadge
+              key={`experience-${experience.companyName}-tech-${tech.name}`}
+              name={tech.name}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  )
 }
