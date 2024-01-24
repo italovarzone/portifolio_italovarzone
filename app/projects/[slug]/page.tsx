@@ -40,10 +40,7 @@ const getProjectDetails = async (slug: string): Promise<ProjectPageData> => {
     }
   }
   `
-  const data = fetchHygraphQuery<ProjectPageData>(
-    query,
-    1000 * 60 * 60 * 24, // 1 day
-  )
+  const data = fetchHygraphQuery<ProjectPageData>(query)
 
   return data
 }
