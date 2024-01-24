@@ -1,3 +1,5 @@
+'use client'
+
 import { Link } from '@/app/components/link'
 import { TechBadge } from '@/app/components/tech-badge'
 import { Project } from '@/app/types/projects'
