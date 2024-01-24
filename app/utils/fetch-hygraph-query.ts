@@ -1,6 +1,6 @@
 export const fetchHygraphQuery = async <T>(
   query: any,
-  // revalidate?: number,
+  revalidate?: number,
 ): Promise<T> => {
   const response = await fetch(process.env.NEXT_PUBLIC_HYGRAPH_URL!, {
     method: 'POST',
@@ -8,7 +8,9 @@ export const fetchHygraphQuery = async <T>(
       'Content-Type': 'application/json',
       Accept: 'application/json',
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_HYGRAPH_TOKEN}`,
-      // 'Cache-Control': revalidate ? `max-age=${revalidate}` : 'no-cache',
+    },
+    next: {
+      revalidate,
     },
     body: JSON.stringify({
       query,
