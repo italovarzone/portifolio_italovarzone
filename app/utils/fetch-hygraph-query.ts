@@ -3,6 +3,7 @@ export const fetchHygraphQuery = async <T>(
   revalidate?: number,
 ): Promise<T> => {
   const response = await fetch(process.env.NEXT_PUBLIC_HYGRAPH_URL!, {
+    cache: 'no-store',
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
