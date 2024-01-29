@@ -31,7 +31,7 @@ export const ProjectDetails = ({ project }: ProjectDetailsProps) => {
 
       <SectionTitle
         subtitle="projetos"
-        title="Pokedex API"
+        title={project.title}
         className="text-center items-center sm:text-4xl"
       />
 
